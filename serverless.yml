@@ -1,0 +1,24 @@
+service: cloudformation-cloudfront-oai
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: prod
+  region: eu-west-1
+
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - "cloudfront:ListCloudFrontOriginAccessIdentities"
+       - "cloudfront:GetCloudFrontOriginAccessIdentity"
+       - "cloudfront:GetCloudFrontOriginAccessIdentityConfig"
+       - "cloudfront:CreateCloudFrontOriginAccessIdentity"
+       - "cloudfront:DeleteCloudFrontOriginAccessIdentity"
+     Resource: "*"
+
+functions:
+  get_oai:
+    handler: oai.handler
+
+resources:
+  Description: "ServerLess: CloudFormation CustomResource for CloudFront OAI"
